@@ -1,9 +1,29 @@
 const User = require('../model/user')
 
 module.exports.profile = function(req,res){
-    return res.render('user_profile',{
-        title:'PROFILE',
-    });
+
+    if(req.cookies.user_id){
+
+        User.findById(req.cookies.user_id , function(err,user){
+
+            if(user){
+                return res.render('user_profile',{
+                    title: 'User Profile',
+                    user : user,
+                    
+                })
+            }
+            else{
+                console.log('user not found in profile');
+                return res.redirect('/users/sign-in');
+            }
+        })
+
+    }
+    else{
+        return res.redirect('/users/sign-in');
+    }
+    
 }
 
 module.exports.posts = function(req,res){
@@ -39,7 +59,7 @@ module.exports.create = function(req,res){
 
             console.log('error in finding user during sign up',err.name); 
             return;
-       }
+}
 
         if(!user){
             User.create(req.body,function(err,user){
@@ -79,5 +99,6 @@ module.exports.createSession = function(req,res){
         else{
             //handle user not found
         }
-    })
+    });
 }
+
