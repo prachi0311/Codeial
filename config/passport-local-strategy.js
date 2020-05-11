@@ -11,6 +11,7 @@ passport.use(new LocalStrategy({
 
     function (email, password , done) {
         
+        
         //finding user
         User.findOne({email : email},function (err,user) {
             
@@ -43,6 +44,29 @@ passport.deserializeUser(function(id,done) {
         }
         return done(null,user);
     })
-})
+});
+
+passport.checkAuthentication = function(req,res,next) {
+    //if the user is signed in  , pass the req to next controller action
+    if(req.isAuthenticated()){
+        return next();
+    }
+
+    //if user not signed in
+    return res.redirect('/users/sign-in');
+
+}
+
+passport.setAuthenticatedUser = function(req,res,next){
+
+    //if user authenticated the store user info from req to local
+    if(req.isAuthenticated()){
+        res.locals.user = req.user;
+    }
+
+    next();
+}
+
+
 
 module.exports = passport;

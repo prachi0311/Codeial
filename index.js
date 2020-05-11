@@ -8,6 +8,7 @@ const db = require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo')(session);
 
 
 app.use(express.urlencoded());
@@ -27,6 +28,7 @@ app.set('layout extractScripts',true);
 app.set('view engine','ejs');
 app.set('views','./views');
 
+//use MongoStore to store session cookie in the db.
 app.use(session({
     name: 'codial',
     // TODO change secret
@@ -35,11 +37,21 @@ app.use(session({
         maxAge :( 1000 * 60 * 100)
     },
     saveUninitialized:false,
-    resave:false
+    resave:false,
+    store : new MongoStore({
+        mongooseConnection : db,
+        autoRemove : 'disabled'
+    },
+    function(err){
+        console.log(err || 'mongostore setup successful');
+    }
+    )
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
 
 //use Express Router
 app.use('/',require('./routes/index'));
