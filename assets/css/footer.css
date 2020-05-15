@@ -1,0 +1,14 @@
+.footer-flex-container {
+  margin: 0px !important;
+  display: flex;
+  flex-direction: row;
+  background-color: #2d818ef0;
+  align-items: center;
+  width: 100%;
+  height: 8vh; }
+  .footer-flex-container div, .footer-flex-container a {
+    color: #D2DBE8;
+    font-size: 1.2rem; }
+  .footer-flex-container ul {
+    margin: 0px;
+    list-style: none; }

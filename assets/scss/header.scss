@@ -1,0 +1,24 @@
+.header-flex-container{
+    margin: 0px !important;
+    display: flex;
+    flex-direction: row;
+    background-color:#0a535f;
+    align-items: center;
+    width: 100%;
+    height: 6vh;
+
+        .justify-end{
+            
+            margin-left: 77vw;
+        }
+
+        a{
+            color: #D2DBE8;
+            font-size: 1.2rem;
+        }
+        #logo-img{
+            height: 110%;
+            width: 9rem;
+        }
+
+}
