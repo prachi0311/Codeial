@@ -1,4 +1,30 @@
 
 <br>
-<h3>Welcome to Bubblel/ <%= title%></h3>
+<h3>
+    Welcome to Bubblel/ <%= title%>
+</h3>
+
+<section id="feed-posts">
+    <form action="/posts/create" method="POST">
+        <textarea name="content"  cols="30" rows="3" placeholder="Type here..."></textarea>
+        <br>
+        <input type="submit" ></input>
+    </form> 
+
+    <div id="posts-list-container">
+
+        <ul>
+            <%for(post of posts){%>
+                <p>
+                    <li><%= post.content %></li>
+                    <small><%= post.user.name%></small>
+                </p>
+            <%}%>
+        </ul>
+
+    </div>
+
+</section>
+
+
        

@@ -1,15 +1,12 @@
 const User = require('../model/user')
 
+
 module.exports.profile = function(req,res){
     console.log(req.body);
     return res.render('user_profile',{
         title : 'Profile',
     })
     
-}
-
-module.exports.posts = function(req,res){
-    res.end('<h1>This is  a post on user wall<h1>')
 }
 
 module.exports.signIn = function(req,res){
@@ -55,7 +52,7 @@ module.exports.create = function(req,res){
                 if(err){console.log('error in creating user during sign up'); return}
 
                 return res.redirect('/users/sign-in');
-            })
+            });
         }
 
         else{
